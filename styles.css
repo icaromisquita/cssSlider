@@ -1,0 +1,255 @@
+:root {
+    --text: #eee;
+    --background: #000;
+    --text-shadow: 0 5px 10px #0004
+  }
+
+*{
+    font-family: "Poppins", sans-serif;
+}
+
+body{
+    background-color: var(--background);
+    color: #eee;
+    font-size: 1rem;
+}
+
+body header{
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    width: 80%;
+    height: 50px;
+    margin: auto;
+}
+
+header a{
+    color: var(--text);
+    margin-right: 40px;
+    font-weight: 300;
+}
+
+.container{
+    height: 100vh;
+    width: 100vw;
+    margin-top: -50px;
+    overflow: hidden;
+}
+
+.container .list .list-item{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.container .list .list-item img{
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    filter: brightness(50%);
+}
+
+.container .list .list-item  .content{
+    position: absolute;
+    top: 20%;
+    right: 10%;
+    padding-right: 30%;
+    width: 80%;
+    color: var(--text);
+    text-shadow: var(--text-shadow);
+}
+
+.container .list .list-item .place_name{
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.container .list .list-item .description{
+    font-size: 1.5rem;
+}
+
+.container .list .list-item .buttons{
+    display: grid;
+    grid-template-columns: repeat(2,130px);
+    grid-template-rows: 50px;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.container .list .list-item .buttons button{
+    background-color: #fff;
+    letter-spacing: 3px;
+    font-weight: 500;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.container .list .list-item .buttons button:hover{
+    background-color: transparent;
+    border: 1px solid #fff;
+    color: var(--text);
+    transition: 0.7s;
+}
+
+.container .list .list-item .buttons button:nth-child(2){
+    background-color: transparent;
+    border: 1px solid #fff;
+    color: var(--text);
+}
+
+.container .list .list-item .buttons button:nth-child(2):hover{
+    background-color: #fff;
+    color: #000;
+    transition: 0.7s;
+}
+
+.container .thumb{
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    display: flex;
+    gap: 1.25rem;
+}
+
+.container .thumb .thumb-item{
+    width: 135px;
+    height: 200px;
+    position: relative;
+    z-index: 5;
+}
+
+.container .thumb .thumb-item img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    filter: brightness(80%);
+}
+
+.container .thumb .thumb-item .thumb-content{
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+}
+
+.container .arrow-button{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: absolute;
+    bottom: 120px;
+    left: 125px;
+    width: 300px;   
+}
+
+.container .arrow-button button{
+    background-color: #eee4;
+    z-index: 3;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.container .arrow-button button:hover{
+    background-color: #eee;
+    transition: 0.7s;
+}
+
+/*  Thumb animation */
+
+.container.next .thumb{
+    animation: effectNextThumb 0.5s linear 1 forwards;
+}
+
+@keyframes effectNextThumb{
+    from{
+        transform: translateX(150px);
+    }
+}
+
+/*  Last thumb animation */
+.container.next .thumb .thumb-item:nth-last-child(1){
+    animation: effectLastThumb 0.5s linear 1 forwards;
+}
+
+@keyframes effectLastThumb{
+    from {
+        width: 0;
+        opacity: 0;
+    }
+}
+
+/*  Text animation */
+
+.container .list .list-item:nth-last-child(1) .content, 
+.container .list .list-item:nth-last-child(1) .title,
+.container .list .list-item:nth-last-child(1).buttons{
+    transform: translateY(50px);
+    filter: blur(20px);
+    opacity: 0;
+    animation: showTextContent 0.5s 1s linear 1 forwards;
+}
+
+@keyframes showTextContent{
+    to{
+        transform: translateY(0);
+        filter: blur(0);
+        opacity: 1;
+    }
+}
+
+.container .list .list-item:nth-last-child(1) .content{
+    animation-delay: 1.2s;
+}
+
+.container .list .list-item:nth-last-child(1).title{
+    animation-delay: 1.5s;
+}
+
+.container .list .list-item:nth-last-child(1) .buttons{
+    animation-delay: 2s;
+}
+
+/*  image animation from THUMB to FULL SCREEN 
+Put it in the same position as the thumb and grow from there */
+.container.next .list-item:nth-last-child(1) img {
+    width: 150px; /* The same value as the thumb image */
+    height: 220px; /* A little bit bigger than thumb image */
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    border-radius: 30px;
+    animation: thumbToFullScreen 0.5s linear 1 forwards;
+}
+
+@keyframes thumbToFullScreen{
+    to {
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+    }
+}
+
+/*  image animation from FULL to SCREEN THUMB
+Put it in the same position as the thumb and grow from there */
+.container.return .list-item:nth-child(1) img {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 4;
+    animation: fullScreenToThumb 0.5s linear 1 forwards;
+}
+
+@keyframes fullScreenToThumb{
+    to{
+        width: 135px;
+        height: 200px;
+        border-radius: 10px;
+        left: 50%;
+        bottom: 50px;
+    }
+}
